@@ -1,1 +1,205 @@
-<h1>Hello World</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLSN Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-coins"></i> PLSN Dashboard</h1>
+            <div class="network-info">
+                <span class="network-badge">PulseChain</span>
+                <span id="account-address" class="truncate">Not connected</span>
+                <button id="connect-wallet" class="btn">Connect Wallet</button>
+            </div>
+        </header>
+
+        <!-- Account Section -->
+        <div id="account-section" class="card account-section hidden">
+            <h2><i class="fas fa-wallet"></i> Account Overview</h2>
+            <div class="grid-container">
+                <div class="info-item">
+                    <span class="label">PLS Balance:</span>
+                    <span id="pls-balance" class="value">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">PLSN Balance:</span>
+                    <span id="plsn-balance" class="value">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">WPLSN Balance:</span>
+                    <span id="wplsn-balance" class="value">-</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard">
+            <div class="card main-card">
+                <h2><i class="fas fa-info-circle"></i> PLSN Token Info</h2>
+                <div class="grid-container">
+                    <div class="info-item">
+                        <span class="label">Name:</span>
+                        <span id="token-name" class="value">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Symbol:</span>
+                        <span id="token-symbol" class="value">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Total Supply:</span>
+                        <span id="total-supply" class="value">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Dead Balance:</span>
+                        <span id="dead-balance" class="value">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Contract Address:</span>
+                        <span class="value">
+                            <span id="plsn-address" class="truncate">0xf651e3978f1f6ec38a6da6014caa6aa07fbae453</span>
+                            <button class="copy-btn" data-target="plsn-address"><i class="far fa-copy"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-group">
+                <div class="card">
+                    <h2><i class="fas fa-percentage"></i> Fee Structure</h2>
+                    <div class="info-item">
+                        <span class="label">Dev Fee:</span>
+                        <span id="dev-fee" class="value">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Liquidity Fee:</span>
+                        <span id="liquidity-fee" class="value">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Marketing Fee:</span>
+                        <span id="marketing-fee" class="value">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Reflection Fee:</span>
+                        <span id="reflection-fee" class="value">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Total Fee:</span>
+                        <span id="total-fee" class="value">-</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2><i class="fas fa-sliders-h"></i> Token Settings</h2>
+                    <div class="info-item">
+                        <span class="label">Max TX Amount:</span>
+                        <span id="max-tx-amount" class="value">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Max Wallet Token:</span>
+                        <span id="max-wallet-token" class="value">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Swap Threshold:</span>
+                        <span id="swap-threshold" class="value">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Sell Multiplier:</span>
+                        <span id="sell-multiplier" class="value">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-hand-holding-usd"></i> Distributor Info</h2>
+                <div class="info-item">
+                    <span class="label">Min Distribution:</span>
+                    <span id="min-distribution" class="value">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Min Period:</span>
+                    <span id="min-period" class="value">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Total Distributed:</span>
+                    <span id="total-distributed" class="value">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Contract Address:</span>
+                    <span class="value">
+                        <span id="distributor-address" class="truncate">0xd097429a1188b79baad4453333466a38a75e4a97</span>
+                        <button class="copy-btn" data-target="distributor-address"><i class="far fa-copy"></i></button>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Token Actions Section (only shown when wallet connected) -->
+            <div id="token-actions" class="card token-actions hidden">
+                <h2><i class="fas fa-exchange-alt"></i> Token Actions</h2>
+                <div class="action-grid">
+                    <!-- Approve Section -->
+                    <div class="action-section">
+                        <h3>Approve Tokens</h3>
+                        <div class="form-group">
+                            <label for="spender-address">Spender Address:</label>
+                            <input type="text" id="spender-address" placeholder="0x...">
+                        </div>
+                        <div class="form-group">
+                            <label for="approve-amount">Amount (PLSN):</label>
+                            <input type="text" id="approve-amount" placeholder="0.0">
+                        </div>
+                        <div class="button-group">
+                            <button id="approve-btn" class="btn action-btn">Approve</button>
+                            <button id="approve-max-btn" class="btn action-btn">Approve Max</button>
+                        </div>
+                    </div>
+
+                    <!-- Transfer Section -->
+                    <div class="action-section">
+                        <h3>Transfer Tokens</h3>
+                        <div class="form-group">
+                            <label for="recipient-address">Recipient Address:</label>
+                            <input type="text" id="recipient-address" placeholder="0x...">
+                        </div>
+                        <div class="form-group">
+                            <label for="transfer-amount">Amount (PLSN):</label>
+                            <input type="text" id="transfer-amount" placeholder="0.0">
+                        </div>
+                        <button id="transfer-btn" class="btn action-btn">Transfer</button>
+                    </div>
+
+                    <!-- Transfer From Section -->
+                    <div class="action-section">
+                        <h3>Transfer From</h3>
+                        <div class="form-group">
+                            <label for="sender-address">Sender Address:</label>
+                            <input type="text" id="sender-address" placeholder="0x...">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-address-from">Recipient Address:</label>
+                            <input type="text" id="recipient-address-from" placeholder="0x...">
+                        </div>
+                        <div class="form-group">
+                            <label for="transfer-from-amount">Amount (PLSN):</label>
+                            <input type="text" id="transfer-from-amount" placeholder="0.0">
+                        </div>
+                        <button id="transfer-from-btn" class="btn action-btn">Transfer From</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>PLSN Dashboard - Monitoring PulseChain Contracts</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="script.js"></script>
+</body>
+</html>
